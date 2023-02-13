@@ -69,10 +69,37 @@ namespace BowlingGameTest
             Assert.AreEqual(expected, actual);
         }
 
+        /// <summary>
+        /// 測試玩家整局只有 1 次全倒(Strike)的總得分(共 20 次投球機會，其餘 16 次皆 0 分)
+        /// 1st 10/0全倒(Strike)，2nd 3/4，其餘皆洗溝
+        /// 全倒(Strike) (1st)
+        /// 10 + 3 + 4 = 17 (Strike Bouns)
+        /// 17 + 3 + 4 = 24 (2nd)
+        /// </summary>
+        [TestMethod]
+        public void TestOneStrike()
+        {
+            int excepted = 24;
+            int actual;
+
+            RollStrike(); // 全倒(Strike)
+            g.Roll(3);
+            g.Roll(4);
+            RollMany(16, 0);
+            actual = g.Score();
+
+            Assert.AreEqual(excepted, actual);
+        }
+
         private void RollSpare()
         {
             g.Roll(5);
             g.Roll(5);
+        }
+
+        private void RollStrike()
+        {
+            g.Roll(10);
         }
 
         private void RollMany(int times, int pins)

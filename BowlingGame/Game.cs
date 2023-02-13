@@ -17,14 +17,19 @@
             int frameIndex = 0;
             for (int frame = 0; frame < 10; frame++)
             {
-                if (isSpare(frameIndex)) // Spare
+                if (isStrike(frameIndex)) // Strike
                 {
-                    totalSocre += (rolls[frameIndex] + rolls[frameIndex + 1] + rolls[frameIndex + 2]);
+                    totalSocre += rolls[frameIndex] + StrikeBonus(frameIndex);
+                    frameIndex++;
+                }
+                else if (isSpare(frameIndex)) // Spare
+                {
+                    totalSocre += rolls[frameIndex] + rolls[frameIndex + 1] + SpareBonus(frameIndex);
                     frameIndex += 2;
                 }
                 else
                 {
-                    totalSocre += rolls[frameIndex] + rolls[frameIndex + 1];
+                    totalSocre += SumOfBallsInFrame(frameIndex);
                     frameIndex += 2;
                 }
             }
@@ -39,6 +44,31 @@
         private bool isSpare(int frameIndex)
         {
             return rolls[frameIndex] + rolls[frameIndex + 1] == 10;
+        }
+
+        /// <summary>
+        /// 判斷是否為全倒(Strike)
+        /// </summary>
+        /// <param name="frameIndex">目前局數</param>
+        /// <returns>True 代表全倒，反之為 False</returns>
+        private bool isStrike(int frameIndex)
+        {
+            return rolls[frameIndex] == 10;
+        }
+
+        private int StrikeBonus(int frameIndex)
+        {
+            return rolls[frameIndex + 1] + rolls[frameIndex + 2];
+        }
+
+        private int SpareBonus(int frameIndex)
+        {
+            return rolls[frameIndex + 2];
+        }
+
+        private int SumOfBallsInFrame(int frameIndex)
+        {
+            return rolls[frameIndex] + rolls[frameIndex + 1];
         }
     }
 }
