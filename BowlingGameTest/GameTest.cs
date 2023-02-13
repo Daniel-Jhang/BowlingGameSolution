@@ -91,6 +91,20 @@ namespace BowlingGameTest
             Assert.AreEqual(excepted, actual);
         }
 
+        /// <summary>
+        /// 測試玩家每局都全倒的得分數 (滿分 300 分)
+        /// </summary>
+        [TestMethod]
+        public void TestPerfectGame()
+        {
+            int expected = 300;
+            int actual;
+
+            RollMany(12, 10);
+            actual = g.Score();
+
+            Assert.AreEqual(expected, actual);
+        }
         private void RollSpare()
         {
             g.Roll(5);
