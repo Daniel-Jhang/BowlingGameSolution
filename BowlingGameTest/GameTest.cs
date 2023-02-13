@@ -26,14 +26,34 @@ namespace BowlingGameTest
             int actual;
 
             // Act
-            for (int i = 0; i < 20; i++)
-            {
-                g.Roll(0);
-            }
+            RollMany(20, 0);
             actual = g.Score();
 
             // Assert
             Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// 測試玩家投球 20 次，每次都只得 1 分
+        /// </summary>
+        [TestMethod]
+        public void TestAllOnes()
+        {
+            int expected = 20;
+            int actual = 0;
+
+            RollMany(20, 1);
+            actual = g.Score();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private void RollMany(int times, int pins)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                g.Roll(pins);
+            }
         }
     }
 }
