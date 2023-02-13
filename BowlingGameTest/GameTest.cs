@@ -6,6 +6,7 @@ namespace BowlingGameTest
         [TestMethod]
         public void TestMethod1()
         {
+
         }
     }
 }
