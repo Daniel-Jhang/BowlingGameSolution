@@ -9,7 +9,7 @@
 
         public int Score() // 計分
         {
-            return -1;
+            return 0;
         }
     }
 }
